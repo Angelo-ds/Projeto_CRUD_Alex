@@ -16,9 +16,6 @@ def conectar():
     conn.commit()
     return conn
 
-import sqlite3
-
-
 def inserir_projeto(nome, cliente, prazo, valor, status):
     conn = conectar()
     cursor = conn.cursor()
@@ -34,6 +31,42 @@ def listar_projetos():
     projetos = cursor.fetchall()
     conn.close()
     return projetos
+
+
+def atualizar_projeto(id_, nome, cliente, prazo, valor, status):
+    conn = conectar()
+    cursor = conn.cursor()
+    cursor.execute("""
+        UPDATE projetos SET nome_projeto=?, cliente=?, prazo_entrega=?, valor=?, status=? WHERE id=?
+    """, (nome, cliente, prazo, valor, status, id_))
+    conn.commit()
+    conn.close()
+
+def excluir_projeto(id_):
+    conn = conectar()
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM projetos WHERE id=?", (id_,))
+    conn.commit()
+    conn.close()
+
+def clientes_unicos():
+    conn = conectar()
+    cursor = conn.cursor()
+    cursor.execute("SELECT DISTINCT cliente FROM projetos")
+    clientes = [row[0] for row in cursor.fetchall()]
+    conn.close()
+    return clientes
+
+def total_por_cliente(cliente):
+    conn = conectar()
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT SUM(valor) FROM projetos 
+        WHERE cliente=? AND status='Concluído'
+    """, (cliente,))
+    total = cursor.fetchone()[0]
+    conn.close()
+    return total if total else 0
 
 
 
