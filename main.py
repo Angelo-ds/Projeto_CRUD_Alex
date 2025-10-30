@@ -106,4 +106,16 @@ class Projetos(ttk.Window):
                     command=self.limpar_campos, 
                     bootstyle=SECONDARY).pack(side=LEFT, padx=5)
 
- 
+        # ======== LISTA DE PROJETOS (TREEVIEW) ========
+        self.tree = ttk.Treeview(
+            self,
+            columns=("ID", "Nome", "Cliente", "Prazo", "Valor", "Status"),
+            show="headings"
+        )
+        # Define cabeçalhos e larguras
+        for col in self.tree["columns"]:
+            self.tree.heading(col, text=col)
+            self.tree.column(col, width=150 if col != "Nome" else 200)
+        self.tree.pack(fill=BOTH, expand=True, padx=10, pady=10)
+        self.tree.bind("<<TreeviewSelect>>", self.selecionar_item)  # Ao clicar em um item → carrega nos campos
+
