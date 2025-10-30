@@ -222,6 +222,30 @@ class Projetos(ttk.Window):
             entry.delete(0, END)
         self.status_combo.current(0)
 
+        # === Atualiza a lista de clientes no combobox ===
+    def atualizar_clientes(self):
+        clientes = db.clientes_unicos()
+        self.cliente_combo["values"] = clientes
+        if clientes:
+            self.cliente_combo.current(0)
+
+    # === Calcula o total de valores "Concluídos" do cliente selecionado ===
+    def calcular_total(self):
+        cliente = self.cliente_combo.get().strip()
+        if not cliente:
+            messagebox.showinfo("Info", "Selecione um cliente.")
+            return
+        total = db.total_por_cliente(cliente)
+        # Formata o número no estilo brasileiro (ex: R$ 1.234,56)
+        self.label_total.config(
+            text=f"Total: R$ {total:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+        )
+
+# Executa a aplicação
+if __name__ == "__main__":
+    Projetos = Projetos()
+    Projetos.mainloop()
+
 
 
  
