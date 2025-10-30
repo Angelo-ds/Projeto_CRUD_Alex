@@ -205,6 +205,23 @@ class Projetos(ttk.Window):
         self.limpar_campos()
         self.atualizar_clientes()
 
+        # === Exclui o projeto selecionado ===
+    def excluir(self):
+        if not self.id_projeto:
+            messagebox.showinfo("Info", "Selecione um projeto para excluir.")
+            return
+        db.excluir_projeto(self.id_projeto)
+        self.carregar_projetos()
+        self.limpar_campos()
+        self.atualizar_clientes()
+
+    # === Limpa os campos do formulário ===
+    def limpar_campos(self):
+        self.id_projeto = None
+        for entry in [self.nome_entry, self.cliente_entry, self.prazo_entry, self.valor_entry]:
+            entry.delete(0, END)
+        self.status_combo.current(0)
+
 
 
  
