@@ -188,6 +188,25 @@ class Projetos(ttk.Window):
         self.valor_entry.insert(0, item[4])
         self.status_combo.set(item[5])
 
+       # === Atualiza os dados do projeto selecionado ===
+    def atualizar(self):
+        if not self.id_projeto:
+            messagebox.showinfo("Info", "Selecione um projeto para atualizar.")
+            return
+        db.atualizar_projeto(
+            self.id_projeto,
+            self.nome_entry.get(),
+            self.cliente_entry.get(),
+            self.prazo_entry.get(),
+            float(self.valor_entry.get() or 0),
+            self.status_combo.get()
+        )
+        self.carregar_projetos()
+        self.limpar_campos()
+        self.atualizar_clientes()
+
+
+
  
 
 
