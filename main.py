@@ -74,3 +74,36 @@ class Projetos(ttk.Window):
                                                    column=0, 
                                                    padx=5, 
                                                    pady=5)
+        # Combobox para escolher o status do projeto
+        self.status_combo = ttk.Combobox(
+            form_frame,
+            values=["Proposta", "Em Andamento", "Concluído"],
+            state="readonly"
+        )
+        self.status_combo.current(0)
+        self.status_combo.grid(row=2, 
+                               column=1, 
+                               padx=5, 
+                               pady=5)
+
+        # ======== BOTÕES DE AÇÃO ========
+        btn_frame = ttk.Frame(self)
+        btn_frame.pack(fill=X, pady=5)
+        ttk.Button(btn_frame, 
+                   text="Adicionar", 
+                   command=self.adicionar, 
+                   bootstyle=SUCCESS).pack(side=LEFT, padx=5)
+        
+        ttk.Button(btn_frame, text="Atualizar", 
+                   command=self.atualizar, 
+                   bootstyle=INFO).pack(side=LEFT, padx=5)
+        
+        ttk.Button(btn_frame, text="Excluir", 
+                   command=self.excluir, 
+                   bootstyle=DANGER).pack(side=LEFT, padx=5)
+        
+        ttk.Button(btn_frame, text="Limpar",
+                    command=self.limpar_campos, 
+                    bootstyle=SECONDARY).pack(side=LEFT, padx=5)
+
+ 
