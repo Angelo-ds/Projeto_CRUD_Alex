@@ -2,7 +2,7 @@ import sqlite3  # Importa a biblioteca SQLite embutida no Python
 
 # Função para conectar (ou criar) o banco de dados freelancer.db
 def conectar():
-    conexao = sqlite3.conexaoect("freelancer.db")  # Cria ou conecta ao arquivo do banco
+    conexao = sqlite3.connect("freelancer.db")  # Cria ou conecta ao arquivo do banco
     cursor = conexao.cursor()                   # Cria um cursor para executar comandos SQL
     # Cria a tabela de projetos caso não exista ainda
     cursor.execute("""

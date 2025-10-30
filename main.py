@@ -167,6 +167,29 @@ class Projetos(ttk.Window):
         for projeto in db.listar_projetos():
             self.tree.insert("", END, values=projeto)
 
+    
+        # === Preenche os campos ao clicar em um item da lista ===
+    def selecionar_item(self,event):
+        selecionado = self.tree.selection()
+        if not selecionado:
+            return
+        item = self.tree.item(selecionado[0], "values")
+        self.id_projeto = item[0]  # Guarda o ID para editar/excluir
+
+        # Preenche os campos
+        self.nome_entry.delete(0, END)
+        self.cliente_entry.delete(0, END)
+        self.prazo_entry.delete(0, END)
+        self.valor_entry.delete(0, END)
+
+        self.nome_entry.insert(0, item[1])
+        self.cliente_entry.insert(0, item[2])
+        self.prazo_entry.insert(0, item[3])
+        self.valor_entry.insert(0, item[4])
+        self.status_combo.set(item[5])
+
+ 
+
 
 
 
