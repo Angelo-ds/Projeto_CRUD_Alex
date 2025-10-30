@@ -119,3 +119,26 @@ class Projetos(ttk.Window):
         self.tree.pack(fill=BOTH, expand=True, padx=10, pady=10)
         self.tree.bind("<<TreeviewSelect>>", self.selecionar_item)  # Ao clicar em um item → carrega nos campos
 
+                # ======== TOTALIZADOR POR CLIENTE ========
+        total_frame = ttk.Labelframe(self, text="Totalizador por Cliente",
+                                      padding=10)
+        total_frame.pack(fill=X, 
+                         padx=10, 
+                         pady=5)
+
+        # Combobox com nomes de clientes
+        self.cliente_combo = ttk.Combobox(total_frame, 
+                                          state="readonly")
+        self.cliente_combo.pack(side=LEFT, 
+                                padx=5)
+
+        # Botão para calcular o total
+        ttk.Button(total_frame, text="Calcular Total", 
+                   command=self.calcular_total, 
+                   bootstyle=PRIMARY).pack(side=LEFT, padx=5)
+
+        # Label que exibirá o total formatado
+        self.label_total = ttk.Label(total_frame, 
+                                     text="Total: R$ 0.00", 
+                                     font=("Helvetica", 12, "bold"))
+        self.label_total.pack(side=LEFT, padx=15)
