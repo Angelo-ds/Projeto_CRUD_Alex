@@ -142,3 +142,31 @@ class Projetos(ttk.Window):
                                      text="Total: R$ 0.00", 
                                      font=("Helvetica", 12, "bold"))
         self.label_total.pack(side=LEFT, padx=15)
+
+        
+    # === Função para adicionar um novo projeto ===
+    def adicionar(self):
+        if not self.nome_entry.get() or not self.cliente_entry.get():
+            messagebox.showwarning("Atenção", "Preencha todos os campos obrigatórios.")
+            return
+        db.inserir_projeto(
+            self.nome_entry.get(),
+            self.cliente_entry.get(),
+            self.prazo_entry.get(),
+            float(self.valor_entry.get() or 0),
+            self.status_combo.get()
+        )
+        self.carregar_projetos()
+        self.limpar_campos()
+        self.atualizar_clientes()
+
+    # === Carrega todos os projetos do banco e mostra na tabela ===
+    def carregar_projetos(self):
+        for i in self.tree.get_children():
+            self.tree.delete(i)
+        for projeto in db.listar_projetos():
+            self.tree.insert("", END, values=projeto)
+
+
+
+
