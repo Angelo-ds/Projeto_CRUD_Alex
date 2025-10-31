@@ -117,12 +117,17 @@ class Projetos(ttk.Window):
         for col in self.tree["columns"]:
             self.tree.heading(col, text=col)
             self.tree.column(col, width=150 if col != "Nome" else 200)
-        self.tree.pack(fill=BOTH, expand=True, padx=10, pady=10)
+        self.tree.pack(fill=BOTH, 
+                       expand=True, 
+                       padx=10, 
+                       pady=10)
         self.tree.bind("<<TreeviewSelect>>", self.selecionar_item)
 
         # ======== TOTALIZADOR POR CLIENTE ========
         total_frame = ttk.Labelframe(self, text="Totalizador por Cliente", padding=10)
-        total_frame.pack(fill=X, padx=10, pady=5)
+        total_frame.pack(fill=X, 
+                         padx=10, 
+                         pady=5)
 
         self.cliente_combo = ttk.Combobox(total_frame, 
                                           state="readonly")
