@@ -23,35 +23,70 @@ class Projetos(ttk.Window):
         form_frame = ttk.Frame(self, padding=10)
         form_frame.pack(fill=X)
 
-        ttk.Label(form_frame, text="Nome do Projeto:").grid(row=0, column=0, padx=5, pady=5)
+        ttk.Label(form_frame, text="Nome do Projeto:").grid(row=0, 
+                                                            column=0, 
+                                                            padx=5, 
+                                                            pady=5)
+
         self.nome_entry = ttk.Entry(form_frame)
-        self.nome_entry.grid(row=0, column=1, padx=5, pady=5)
+        self.nome_entry.grid(row=0, 
+                             column=1, 
+                             padx=5, 
+                             pady=5)
 
-        ttk.Label(form_frame, text="Cliente:").grid(row=0, column=2, padx=5, pady=5)
+        ttk.Label(form_frame, text="Cliente:").grid(row=0, 
+                                                    column=2, 
+                                                    padx=5, 
+                                                    pady=5)
+
         self.cliente_entry = ttk.Entry(form_frame)
-        self.cliente_entry.grid(row=0, column=3, padx=5, pady=5)
+        self.cliente_entry.grid(row=0, 
+                                column=3, 
+                                padx=5, 
+                                pady=5)
 
-        ttk.Label(form_frame, text="Prazo Entrega:").grid(row=1, column=0, padx=5, pady=5)
+        ttk.Label(form_frame, 
+                  text="Prazo Entrega:").grid(row=1, 
+                                              column=0, 
+                                              padx=5, 
+                                              pady=5)
         # Usa DateEntry em vez de Entry
         self.prazo_entry = DateEntry(
             form_frame,
             dateformat="%d/%m/%Y",
             bootstyle="info"
         )
-        self.prazo_entry.grid(row=1, column=1, padx=5, pady=5)
+        self.prazo_entry.grid(row=1, 
+                              column=1, 
+                              padx=5, 
+                              pady=5)
 
-        ttk.Label(form_frame, text="Valor:").grid(row=1, column=2, padx=5, pady=5)
+        ttk.Label(form_frame, text="Valor:").grid(row=1, 
+                                                  column=2, 
+                                                  padx=5, 
+                                                  pady=5)
+
         self.valor_entry = ttk.Entry(form_frame)
-        self.valor_entry.grid(row=1, column=3, padx=5, pady=5)
+        self.valor_entry.grid(row=1, 
+                              column=3, 
+                              padx=5, 
+                              pady=5)
 
-        ttk.Label(form_frame, text="Status:").grid(row=2, column=0, padx=5, pady=5)
+        ttk.Label(form_frame, 
+                  ext="Status:").grid(row=2, 
+                                      column=0, 
+                                      padx=5, 
+                                      pady=5)
         self.status_combo = ttk.Combobox(
             form_frame,
             values=["Proposta", "Em Andamento", "Concluído"],
             state="readonly"
         )
         self.status_combo.current(0)
-        self.status_combo.grid(row=2, column=1, padx=5, pady=5)
+        self.status_combo.grid(row=2, 
+                               column=1, 
+                               padx=5, 
+                               pady=5)
 
         # ======== BOTÕES DE AÇÃO ========
         btn_frame = ttk.Frame(self)
@@ -164,10 +199,11 @@ class Projetos(ttk.Window):
         self.cliente_entry.insert(0, item[2])   # Nome do cliente
     
         # Atualiza o DateEntry com a data do banco de dados
+
         # Converte a data em formato "dd/mm/yyyy" para lista de inteiros [dd, mm, yyyy]
         prazo_split = list(map(int, item[3].split("/")))
     
-        # Define a data no DateEntry no formato "yyyy-mm-dd" (requerido pelo DateEntry)
+        # Define a data no DateEntry no formato "yyyy-mm-dd" (modelo ingles)
         self.prazo_entry.set_date(f"{prazo_split[2]}-{prazo_split[1]}-{prazo_split[0]}")
     
         # Insere o valor do projeto
@@ -175,7 +211,7 @@ class Projetos(ttk.Window):
     
         # Atualiza o Combobox de status com o valor correspondente
         self.status_combo.set(item[5])
-        
+
         # === Atualiza os dados do projeto selecionado ===
     def atualizar(self):
         if not self.id_projeto:
