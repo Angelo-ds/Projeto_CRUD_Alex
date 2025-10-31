@@ -238,13 +238,14 @@ class Projetos(ttk.Window):
         total = db.total_por_cliente(cliente)
         # Formata o número no estilo brasileiro (ex: R$ 1.234,56)
         self.label_total.config(
-            text=f"Total: R$ {total:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+            text=f"Total: R$ {total:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".") # o replace muda certas letras que não são aceitas na moeda brasileira
+                                                                                                # ou seja, deixando os pontos nas casas de milhar e a virgula nas decimais
         )
 
 # Executa a aplicação
 if __name__ == "__main__":
-    Projetos = Projetos()
-    Projetos.mainloop()
+    projetos = Projetos()
+    projetos.mainloop()
 
 
 
