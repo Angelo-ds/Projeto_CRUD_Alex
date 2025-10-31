@@ -56,10 +56,22 @@ class Projetos(ttk.Window):
         # ======== BOTÕES DE AÇÃO ========
         btn_frame = ttk.Frame(self)
         btn_frame.pack(fill=X, pady=5)
-        ttk.Button(btn_frame, text="Adicionar", command=self.adicionar, bootstyle=SUCCESS).pack(side=LEFT, padx=5)
-        ttk.Button(btn_frame, text="Atualizar", command=self.atualizar, bootstyle=INFO).pack(side=LEFT, padx=5)
-        ttk.Button(btn_frame, text="Excluir", command=self.excluir, bootstyle=DANGER).pack(side=LEFT, padx=5)
-        ttk.Button(btn_frame, text="Limpar", command=self.limpar_campos, bootstyle=SECONDARY).pack(side=LEFT, padx=5)
+        
+        ttk.Button(btn_frame, text="Adicionar", 
+                   command=self.adicionar, 
+                   bootstyle=SUCCESS).pack(side=LEFT, padx=5)
+        
+        ttk.Button(btn_frame, text="Atualizar", 
+                   command=self.atualizar, 
+                   bootstyle=INFO).pack(side=LEFT, padx=5)
+        
+        ttk.Button(btn_frame, text="Excluir", 
+                   command=self.excluir, 
+                   bootstyle=DANGER).pack(side=LEFT, padx=5)
+        
+        ttk.Button(btn_frame, text="Limpar", 
+                   command=self.limpar_campos, 
+                   bootstyle=SECONDARY).pack(side=LEFT, padx=5)
 
         # ======== LISTA DE PROJETOS (TREEVIEW) ========
         self.tree = ttk.Treeview(
@@ -77,11 +89,19 @@ class Projetos(ttk.Window):
         total_frame = ttk.Labelframe(self, text="Totalizador por Cliente", padding=10)
         total_frame.pack(fill=X, padx=10, pady=5)
 
-        self.cliente_combo = ttk.Combobox(total_frame, state="readonly")
+        self.cliente_combo = ttk.Combobox(total_frame, 
+                                          state="readonly")
+        
         self.cliente_combo.pack(side=LEFT, padx=5)
 
-        ttk.Button(total_frame, text="Calcular Total", command=self.calcular_total, bootstyle=PRIMARY).pack(side=LEFT, padx=5)
-        self.label_total = ttk.Label(total_frame, text="Total: R$ 0.00", font=("Helvetica", 12, "bold"))
+        ttk.Button(total_frame, text="Calcular Total", 
+                   command=self.calcular_total, 
+                   bootstyle=PRIMARY).pack(side=LEFT, padx=5)
+        
+        self.label_total = ttk.Label(total_frame, 
+                                     text="Total: R$ 0.00", 
+                                     font=("Helvetica", 12, "bold"))
+        
         self.label_total.pack(side=LEFT, padx=15)
 
     # === Função para adicionar um novo projeto ===
