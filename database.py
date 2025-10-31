@@ -10,7 +10,7 @@ def conectar():
         id INTEGER PRIMARY KEY AUTOINCREMENT,  -- ID único para cada projeto
         nome_projeto TEXT NOT NULL,            -- Nome do projeto
         cliente TEXT NOT NULL,                 -- Nome do cliente
-        prazo_entrega TEXT,                    -- Prazo de entrega do projeto
+        prazo_entrega DATE,                    -- Prazo de entrega do projeto
         valor REAL,                            -- Valor do projeto
         status TEXT                            -- Status (Proposta, Em Andamento, Concluído)
     )

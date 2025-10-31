@@ -2,7 +2,7 @@ import ttkbootstrap as ttk                 # Biblioteca para tema moderno no Tki
 from ttkbootstrap.constants import *       # Importa constantes (ex: LEFT, RIGHT, END)
 from tkinter import messagebox             # Para exibir alertas e mensagens
 import database as db                      # Importa o módulo de banco de dados
-
+from datetime import datetime
 # Classe principal da aplicação
 class Projetos(ttk.Window):
     def __init__(self):
@@ -146,19 +146,37 @@ class Projetos(ttk.Window):
         
     # === Função para adicionar um novo projeto ===
     def adicionar(self):
+        # Verifica se campos obrigatórios estão preenchidos
         if not self.nome_entry.get() or not self.cliente_entry.get():
             messagebox.showwarning("Atenção", "Preencha todos os campos obrigatórios.")
             return
-        db.inserir_projeto(
+
+        prazo = self.prazo_entry.get().strip()
+        # Verifica se o campo de data está preenchido e é uma data válida
+
+        try:
+            if prazo:  # só tenta validar se o campo não estiver vazio
+                # Tenta converter a string em data
+                datetime.strptime(prazo, "%d/%m/%Y")
+            else:
+                messagebox.showwarning("Atenção", "O campo de prazo é obrigatório.")
+                return
+        except ValueError:
+            messagebox.showerror("Erro", "Data inválida. Use o formato DD/MM/AAAA.")
+            return
+
+            # Se passou nas validações, insere no banco
+        try:
+            db.inserir_projeto(
             self.nome_entry.get(),
             self.cliente_entry.get(),
-            self.prazo_entry.get(),
+            prazo,
             float(self.valor_entry.get() or 0),
             self.status_combo.get()
         )
-        self.carregar_projetos()
-        self.limpar_campos()
-        self.atualizar_clientes()
+            messagebox.showinfo("Sucesso", "Projeto adicionado com sucesso!")
+        except Exception as erro: #o Exception é o modulo de erro geral, ou seja, quando der qualquer erro ele armazena na variável "erro"
+            messagebox.showerror("Erro", f"Não foi possível adicionar o projeto:\n{erro}")
 
     # === Carrega todos os projetos do banco e mostra na tabela ===
     def carregar_projetos(self):
