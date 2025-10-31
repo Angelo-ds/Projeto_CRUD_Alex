@@ -73,7 +73,7 @@ class Projetos(ttk.Window):
                               pady=5)
 
         ttk.Label(form_frame, 
-                  ext="Status:").grid(row=2, 
+                  text="Status:").grid(row=2, 
                                       column=0, 
                                       padx=5, 
                                       pady=5)
