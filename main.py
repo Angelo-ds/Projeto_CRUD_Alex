@@ -141,26 +141,42 @@ class Projetos(ttk.Window):
 
     # === Preenche os campos ao clicar em um item da lista ===
     def selecionar_item(self, event):
+        # Obtém o item(s) atualmente selecionado(s) no Treeview
         selecionado = self.tree.selection()
+    
+        # Se nada estiver selecionado, interrompe a execução da função
         if not selecionado:
             return
+    
+        # Pega os valores do primeiro item selecionado
         item = self.tree.item(selecionado[0], "values")
+    
+        # Armazena o ID do projeto (primeiro valor da linha) em uma variável de instância
         self.id_projeto = item[0]
 
-        # Preenche os campos
+        # Limpa os campos de entrada (Entry) para preparar a atualização
         self.nome_entry.delete(0, END)
         self.cliente_entry.delete(0, END)
         self.valor_entry.delete(0, END)
 
-        self.nome_entry.insert(0, item[1])
-        self.cliente_entry.insert(0, item[2])
-        # Atualiza DateEntry com data do banco
+        # Insere nos campos de entrada os valores do item selecionado
+        self.nome_entry.insert(0, item[1])      # Nome do projeto
+        self.cliente_entry.insert(0, item[2])   # Nome do cliente
+    
+        # Atualiza o DateEntry com a data do banco de dados
+        # Converte a data em formato "dd/mm/yyyy" para lista de inteiros [dd, mm, yyyy]
         prazo_split = list(map(int, item[3].split("/")))
+    
+        # Define a data no DateEntry no formato "yyyy-mm-dd" (requerido pelo DateEntry)
         self.prazo_entry.set_date(f"{prazo_split[2]}-{prazo_split[1]}-{prazo_split[0]}")
+    
+        # Insere o valor do projeto
         self.valor_entry.insert(0, item[4])
+    
+        # Atualiza o Combobox de status com o valor correspondente
         self.status_combo.set(item[5])
-
-    # === Atualiza os dados do projeto selecionado ===
+        
+        # === Atualiza os dados do projeto selecionado ===
     def atualizar(self):
         if not self.id_projeto:
             messagebox.showinfo("Info", "Selecione um projeto para atualizar.")
